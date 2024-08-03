@@ -312,7 +312,7 @@ func UpdateUser(c *gin.Context) {
 			return
 		}
 		var userexists models.User
-		database.DB.Where("account_number = ? ", payload.AccountNumber).First(&userexists)
+		database.DB.Where("account_number = ?", payload.AccountNumber).Where("id != ?", userId).First(&userexists)
 		if userexists.ID > 0 {
 			c.JSON(http.StatusNotFound, gin.H{"Message": "Account Number exist"})
 			return
